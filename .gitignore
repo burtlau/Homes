@@ -34,3 +34,4 @@ build/
 
 # Ignore the application-secrets.properties file
 application-secrets.properties
+MongoConfig
