@@ -1,0 +1,34 @@
+1. Computer memory and storage
+MEMORY:
+RAM random access memory: stores data temporarily. Volatile.
+ROM read-only memory: retains data even powers off. Stores firmware and BIOS(basic input/output system).
+
+- SRAM Static Random Access Memory(Fast / Expensive, using CPU memory quick access time)
+- DRAM Dynamic Random Access Memory(Slower/ cheaper, constantly refresh)  DDR4 DDR5 GDDR6 massive parallel processing.
+
+- Firmawre is software controls hardware devices communicates.
+_ BIOS(basic input/output system) first software computer run, initializing hardware componnets.
+
+STORAGE:
+HDD Hard Disk Drive: large storage capacities at low price
+SDD Solid state Drive: NAND base flash memory, faster data access
+
+
+2. DNS Domain name System
+. | Root Nameservers
+.com .org .ca  | Top Level Domain(TLD) Nameservers
+www.google.com wikipedia.org amazon.ca | Authoritative Nameservers
+
+DNS query:
+1. browser(www.google.com) cache ->
+2. DNS resolver -> 3. root nameservers ->
+4. DNS resolver(nameserver .com) -> 5. (.com nameserver) ->
+6. DNS resolver(Authoritative nameserver google.com) -> 7. (Authoritative nameserver www.google.com)
+8. DNS resolver(IP address 93.184.216.34) -> 9. to operating system to browser
+
+
+3. REST API
+API Application Programming Interface:  (client) -request- (server) -respond- (client)
+REST REpresentational State Transfer: common API standard
+
+

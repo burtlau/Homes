@@ -1,0 +1,12 @@
+House = {
+  "hasBasement": "true",
+  "numOfFloors": "2",
+  "id": "1",
+  "type": "House",
+  "area": "80.7",
+  "pricing": "900000",
+  "numOfRooms": "2",
+  "numOfBaths": "2",
+  "pictureUrl": "",
+  "ownerID": "1",
+}
