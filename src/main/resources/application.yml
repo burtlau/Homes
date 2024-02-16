@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/Homes
+      database: Homes
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
