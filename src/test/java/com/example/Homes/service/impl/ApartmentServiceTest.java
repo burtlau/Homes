@@ -44,10 +44,10 @@ public class ApartmentServiceTest {
     @Test
     void testDeleteApartment() {
         String id = "someId";
-        when(apartmentRepository.findById(id)).thenReturn(Optional.ofNullable(apartment1));
-        Property deletedProperty = propertyService.deleteProperty(id, PropertyType.APARTMENT);
-        assertEquals(apartment1, deletedProperty);
-        verify(apartmentRepository, times(1)).delete(apartment1);
+        when(apartmentRepository.existsById(id)).thenReturn(true);
+        int deleteReturn = propertyService.deleteProperty(id, PropertyType.APARTMENT);
+        assertEquals(0, deleteReturn);
+        verify(apartmentRepository, times(1)).deleteById(id);
     }
     @Test
     void updateApartment() {

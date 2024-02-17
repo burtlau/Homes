@@ -35,3 +35,9 @@ build/
 # Ignore the application-secrets.properties file
 application-secrets.properties
 MongoConfig
+
+mvnw
+*.jar
+*.properties
+.mvn/wrapper/MavenWrapperDownloader.java
+*.cmd

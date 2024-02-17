@@ -41,10 +41,10 @@ public class HouseServiceTest {
     @Test
     void testDeleteHouse() {
         String id = "someId";
-        when(houseRepository.findById(id)).thenReturn(Optional.ofNullable(house1));
-        Property deletedProperty = propertyService.deleteProperty(id, PropertyType.HOUSE);
-        assertEquals(house1, deletedProperty);
-        verify(houseRepository, times(1)).delete(house1);
+        when(houseRepository.existsById(id)).thenReturn(true);
+        int deleteReturn = propertyService.deleteProperty(id, PropertyType.HOUSE);
+        assertEquals(0, deleteReturn);
+        verify(houseRepository, times(1)).deleteById(id);
     }
     @Test
     void updateHouse() {
