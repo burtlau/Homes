@@ -4,6 +4,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+mvnw
+mvnw.cmd
+maven-wrapper.properties
+maven-wrapper.jar
+MavenWrapperDownloader.java
+
 ### STS ###
 .apt_generated
 .classpath
