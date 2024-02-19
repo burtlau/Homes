@@ -5,7 +5,6 @@ import com.example.Homes.entity.PropertyType;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
-@Service
 public interface PropertyService {
 
     public List<? extends Property> getAllProperties();
