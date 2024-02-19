@@ -12,7 +12,7 @@ public interface PropertyService {
 
     public Property addProperty(Property property);
 
-    public Property deleteProperty(String id, PropertyType propertyType);
+    public int deleteProperty(String id, PropertyType propertyType);
     public<T extends Property> T updateProperty(String id, Property property);
 
     /**

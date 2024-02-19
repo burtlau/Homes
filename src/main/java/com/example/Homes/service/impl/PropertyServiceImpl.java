@@ -53,14 +53,12 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Property deleteProperty(String id, PropertyType propertyType) {
+    public int deleteProperty(String id, PropertyType propertyType) {
         MongoRepository repository = repositoryMap.get(propertyType);
         if (repository != null) {
-            Optional<? extends Property> propertyOptional = repository.findById(id);
-            if (propertyOptional.isPresent()) {
-                Property property = propertyOptional.get();
-                repository.delete(property);
-                return property;
+            if (repository.existsById(id)) {
+                repository.deleteById(id);
+                return 0;
             } else {
                 throw new IllegalArgumentException("Property with ID: " + id + " not found in " + propertyType);
             }
