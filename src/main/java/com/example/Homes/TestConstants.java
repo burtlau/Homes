@@ -64,4 +64,7 @@ public class TestConstants {
             true,
             10000.0
     );
+
+    public final String MongoURI = "mongodb://localhost:27017/Homes";
+    public final String MongoURI_TEST = "mongodb://localhost:27017/HomesTest";
 }

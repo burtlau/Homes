@@ -23,16 +23,7 @@ import java.util.*;
 @SpringBootTest
 @ActiveProfiles("test")
 public class PropertyServiceImplTest {
-
-    private static String localhost = System.getenv("hostName");
-    private static final String DB_NAME = "HomesTest";
-
-    private static String mongoTestPort = System.getenv("portNumber");;
-
-    private static String mongoUsername = System.getenv("mongoUsername");
-
-    private static String mongoPassword = System.getenv("mongoPassword");
-
+    private static final String MONGOURI = TestConstants.MONGOURI_TEST;
     private static final House HOUSE_1 = TestConstants.HOUSE_1;
     private static final House HOUSE_2 = TestConstants.HOUSE_2;
 
@@ -53,8 +44,8 @@ public class PropertyServiceImplTest {
 
     @BeforeAll
     public static void initializeDB(){
-        mongoClient = MongoClients.create(String.format("mongodb://%s:%s@%s:%s/%s", mongoUsername, mongoPassword, localhost, mongoTestPort, DB_NAME));
-        database = mongoClient.getDatabase(DB_NAME);
+        mongoClient = MongoClients.create(MONGOURI);
+        database = mongoClient.getDatabase("HomesTest");
     }
 
     @AfterAll
