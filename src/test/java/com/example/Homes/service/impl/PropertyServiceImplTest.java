@@ -1,54 +1,72 @@
 package com.example.Homes.service.impl;
 
+import com.example.Homes.DemoApplication;
+import com.example.Homes.TestConstants;
+import com.example.Homes.entity.House;
+import com.example.Homes.repo.HouseRepository;
+import com.mongodb.client.*;
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodProcess;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.MongodConfig;
+import de.flapdoodle.embed.mongo.config.RuntimeConfig;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.extract.UserTempNaming;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.Homes.TestConstants;
-import com.example.Homes.entity.*;
-import com.example.Homes.repo.HouseRepository;
-import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.service.impl.PropertyServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+@SpringBootTest(classes = DemoApplication.class)
+public class ServiceIntegrationTest {
+    private static final String LOCALHOST = "127.0.0.1";
+    private static final String DB_NAME = "HomesTest";
+    private static final int MONGO_TEST_PORT = 27028;
 
-class PropertyServiceImplTest {
+    private static final House HOUSE_1 = TestConstants.HOUSE_1;
 
-    @Mock
+    @Autowired
     private HouseRepository houseRepository;
-    @Mock
-    private ApartmentRepository apartmentRepository;
 
-    @InjectMocks
-    private PropertyServiceImpl propertyService;
+    private static MongodProcess mongodProcess;
+    private static MongoClient mongoClient;
+    private static MongoDatabase database;
 
-    private House house1 = TestConstants.HOUSE_1;
-    private House house2 = TestConstants.HOUSE_2;
-    private Apartment apartment1 = TestConstants.APARTMENT_1;
+    @BeforeAll
+    public static void initializeDB() throws IOException {
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
+        RuntimeConfig config = new RuntimeConfig();
+        config.setExecutableNaming(new UserTempNaming());
+
+        MongodStarter starter = MongodStarter.getInstance(config);
+
+        MongodExecutable mongoExecutable = starter.prepare(new MongodConfig(Version.V2_2_0, MONGO_TEST_PORT, false));
+        mongodProcess = mongoExecutable.start();
+
+        mongoClient = MongoClients.create(String.format("mongodb://adminUser:adminPassword@%s:%s", LOCALHOST, MONGO_TEST_PORT));
+        database = mongoClient.getDatabase(DB_NAME);
+
+    }
+
+    @AfterAll
+    public static void shutdownDB() throws InterruptedException {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+        mongodProcess.stop();
     }
 
     @Test
-    void testGetAllProperties() {
-        when(houseRepository.findAll()).thenReturn(List.of(house1));
-        when(apartmentRepository.findAll()).thenReturn(List.of(apartment1));
-        List<? extends Property> allProperties = propertyService.getAllProperties();
-        verify(houseRepository, times(1)).findAll();
-        verify(apartmentRepository, times(1)).findAll();
-        assertTrue(allProperties.contains(house1));
-        assertTrue(allProperties.contains(apartment1));
+    public void testAddProperty()
+    {
+        House savedHouse = houseRepository.save(HOUSE_1);
+        Optional<House> gotHouseOptional = houseRepository.findById(savedHouse.getId());
+        House gotHouse = gotHouseOptional.orElse(null);
+        assertNotNull(gotHouse);
+        assertEquals(HOUSE_1.getType(), gotHouse.getType());
     }
 
 }
