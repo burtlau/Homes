@@ -2,11 +2,9 @@ package com.example.Homes.service.impl;
 
 import com.example.Homes.TestConstants;
 import com.example.Homes.entity.Apartment;
-import com.example.Homes.entity.House;
 import com.example.Homes.entity.Property;
 import com.example.Homes.entity.PropertyType;
 import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.repo.HouseRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -20,7 +18,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
-public class ApartmentServiceTest {
+public class ApartmentAPITest {
     private Apartment apartment1 = TestConstants.APARTMENT_1;
     private Apartment apartment2 = TestConstants.APARTMENT_2;
     @Mock

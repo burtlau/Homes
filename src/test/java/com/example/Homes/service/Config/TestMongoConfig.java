@@ -1,30 +1,21 @@
-package com.example.Homes.Config;
+package com.example.Homes.service.Config;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import jakarta.annotation.PostConstruct;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.core.env.Environment;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 
-@Configuration
-@EnableMongoRepositories(basePackages = "com.example.Homes.repo")
-public class TestMongoConfig {
+import java.util.Arrays;
 
-    @Value("${spring.data.mongodb.test.uri}")
-    private String mongoUri;
-
-    @Value("${spring.data.mongodb.test.database}")
-    private String mongoDatabase;
-
-    @Bean
-    public MongoClient mongoClient() {
-        return MongoClients.create(mongoUri);
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(mongoClient(), mongoDatabase);
+@TestConfiguration
+//@Profile("test")
+//@EnableMongoRepositories(basePackages = "com.example.Homes.repo")
+//@ComponentScan(basePackages = "com.example.Homes.repo")
+//@ComponentScan(basePackages = "com.example.Homes.service")
+public class TestMongoConfig extends AbstractMongoClientConfiguration {
+    private static final String DATABASE_NAME = "HomesTest";
+    @Override
+    protected String getDatabaseName() {
+        return DATABASE_NAME;
     }
 }

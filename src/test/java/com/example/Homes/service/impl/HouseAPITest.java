@@ -1,6 +1,5 @@
 package com.example.Homes.service.impl;
 
-import com.example.Homes.entity.Address;
 import com.example.Homes.entity.House;
 import com.example.Homes.entity.Property;
 import com.example.Homes.entity.PropertyType;
@@ -17,7 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class HouseServiceTest {
+public class HouseAPITest {
     private House house1 = TestConstants.HOUSE_1;
     private House house2 = TestConstants.HOUSE_2;
     @Mock

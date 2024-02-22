@@ -1,14 +1,25 @@
 //package com.example.Homes.config;
-//import org.springframework.context.annotation.Bean;
+//
+//import com.mongodb.client.MongoClient;
+//import com.mongodb.client.MongoClients;
+//import org.springframework.beans.factory.annotation.Value;
 //import org.springframework.context.annotation.Configuration;
-//import org.springframework.data.mongodb.core.MongoTemplate;
-//import org.springframework.data.mongodb.core.SimpleMongoClientDatabaseFactory;
+//import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 //
 //@Configuration
-//public class MongoConfig {
+//public class MainMongoConfig extends AbstractMongoClientConfiguration {
 //
-//    @Bean
-//    public MongoTemplate mongoTemplate() {
-//        return new MongoTemplate(new SimpleMongoClientDatabaseFactory("mongodb+srv://Zhongliu:AM2IOf41CUyVdJVZ@cluster0.9zrb4xv.mongodb.net/Homes?retryWrites=true&w=majority"));
+//    @Value("${spring.data.mongodb.uri}")
+//    private String mongoUri;
+//
+//    @Override
+//    protected String getDatabaseName() {
+//        // Extract database name from URI
+//        return MongoClients.create(mongoUri).getDatabase("Homes").getName();
+//    }
+//
+//    @Override
+//    public MongoClient mongoClient() {
+//        return MongoClients.create(mongoUri);
 //    }
 //}

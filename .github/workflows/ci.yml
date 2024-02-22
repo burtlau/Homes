@@ -3,8 +3,7 @@ name: backend
 on:
   push:
     branches:
-      - main
-      - 1-backend-initialization
+      - '*'
 
 jobs:
   build:
