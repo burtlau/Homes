@@ -3,12 +3,17 @@ name: backend
 on:
   push:
     branches:
-      - main
-      - 1-backend-initialization
+      - '*'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
 
     steps:
       - name: Checkout code

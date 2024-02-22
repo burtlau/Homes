@@ -1,54 +1,74 @@
 package com.example.Homes.service.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.Homes.TestConstants;
-import com.example.Homes.entity.*;
-import com.example.Homes.repo.HouseRepository;
+import com.example.Homes.entity.Apartment;
+import com.example.Homes.entity.House;
+import com.example.Homes.entity.Property;
 import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.service.impl.PropertyServiceImpl;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.context.SpringBootTest;
+import com.example.Homes.repo.HouseRepository;
+import com.example.Homes.service.PropertyService;
+import com.mongodb.client.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import java.io.IOException;
+import java.util.*;
 
-class PropertyServiceImplTest {
 
-    @Mock
+@SpringBootTest
+@ActiveProfiles("test")
+public class PropertyServiceImplTest {
+    private static final String MONGOURI = TestConstants.MONGOURI_TEST;
+    private static final House HOUSE_1 = TestConstants.HOUSE_1;
+    private static final House HOUSE_2 = TestConstants.HOUSE_2;
+
+    private static final Apartment APARTMENT_1 = TestConstants.APARTMENT_1;
+    private static final Apartment APARTMENT_2 = TestConstants.APARTMENT_2;
+
+    @Autowired
     private HouseRepository houseRepository;
-    @Mock
+
+    @Autowired
     private ApartmentRepository apartmentRepository;
 
-    @InjectMocks
-    private PropertyServiceImpl propertyService;
+    @Autowired
+    private PropertyService propertyService;
 
-    private House house1 = TestConstants.HOUSE_1;
-    private House house2 = TestConstants.HOUSE_2;
-    private Apartment apartment1 = TestConstants.APARTMENT_1;
+    private static MongoClient mongoClient;
+    private static MongoDatabase database;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
+    @BeforeAll
+    public static void initializeDB(){
+        mongoClient = MongoClients.create(MONGOURI);
+        database = mongoClient.getDatabase("HomesTest");
+    }
+
+    @AfterAll
+    public static void shutdownDB() throws InterruptedException {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+    }
+
+    @AfterEach
+    public void cleanup() {
+        houseRepository.deleteAll();
+        apartmentRepository.deleteAll();
     }
 
     @Test
-    void testGetAllProperties() {
-        when(houseRepository.findAll()).thenReturn(List.of(house1));
-        when(apartmentRepository.findAll()).thenReturn(List.of(apartment1));
+    public void AddPropertyTest()
+    {
+        houseRepository.saveAll(List.of(HOUSE_1, HOUSE_2));
+        apartmentRepository.saveAll(List.of(APARTMENT_1, APARTMENT_2));
         List<? extends Property> allProperties = propertyService.getAllProperties();
-        verify(houseRepository, times(1)).findAll();
-        verify(apartmentRepository, times(1)).findAll();
-        assertTrue(allProperties.contains(house1));
-        assertTrue(allProperties.contains(apartment1));
+        int expectedSize = houseRepository.findAll().size() + apartmentRepository.findAll().size();
+        assertEquals(expectedSize, allProperties.size());
     }
 
 }

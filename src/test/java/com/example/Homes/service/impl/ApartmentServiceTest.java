@@ -2,61 +2,103 @@ package com.example.Homes.service.impl;
 
 import com.example.Homes.TestConstants;
 import com.example.Homes.entity.Apartment;
-import com.example.Homes.entity.House;
 import com.example.Homes.entity.Property;
 import com.example.Homes.entity.PropertyType;
 import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.repo.HouseRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import com.example.Homes.service.PropertyService;
+import com.mongodb.client.*;
 
-import java.util.Optional;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
+import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+import java.util.*;
 
+
+@SpringBootTest
+@ActiveProfiles("test")
 public class ApartmentServiceTest {
-    private Apartment apartment1 = TestConstants.APARTMENT_1;
-    private Apartment apartment2 = TestConstants.APARTMENT_2;
-    @Mock
+    private static final String MONGOURI = TestConstants.MONGOURI_TEST;
+    private static final Apartment APARTMENT_1  = TestConstants.APARTMENT_1;
+    private static final Apartment APARTMENT_2  = TestConstants.APARTMENT_2;
+
+    @Autowired
     private ApartmentRepository apartmentRepository;
 
-    @InjectMocks
-    private PropertyServiceImpl propertyService;
+    @Autowired
+    private PropertyService propertyService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
+    private static MongoClient mongoClient;
+    private static MongoDatabase database;
+
+    @BeforeAll
+    public static void initializeDB() throws IOException {
+        mongoClient = MongoClients.create(MONGOURI);
+        database = mongoClient.getDatabase("HomesTest");
+    }
+
+    @AfterAll
+    public static void shutdownDB() throws InterruptedException {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+    }
+
+    @AfterEach
+    public void cleanup() {
+        apartmentRepository.deleteAll();
     }
 
     @Test
-    void testAddApartment() {
-        when(apartmentRepository.save(apartment1)).thenReturn(apartment1);
-        Property savedHouse = propertyService.addProperty(apartment1);
-        assertEquals(apartment1, savedHouse);
+    public void AddApartmentsTest()
+    {
+        Apartment savedApartment = propertyService.addProperty(APARTMENT_1);
+        assertNotNull(savedApartment.getId());
+
+        // Check whether this apartment was saved in apartmentRepository
+        Optional<Apartment> retrievedApartmentOptional = apartmentRepository.findById(savedApartment.getId());
+        assertTrue(retrievedApartmentOptional.isPresent(), "Apartments not found in repository");
+
+        // Compare the properties of the retrieved apartment with the original apartment
+        Apartment retrievedApartment = retrievedApartmentOptional.get();
+        assertEquals(APARTMENT_1.getHasGym(), retrievedApartment.getHasGym());
+        assertEquals(APARTMENT_1.getPricing(), retrievedApartment.getPricing());
+    }
+
+
+    @Test
+    public void DeleteApartmentTest()
+    {
+        Apartment savedApartment = propertyService.addProperty(APARTMENT_1);
+        int result = propertyService.deleteProperty(savedApartment.getId(), PropertyType.APARTMENT);
+
+        // Verify that the apartment was deleted successfully
+        assertEquals(0, result);
+        Optional<Apartment> deleteApartmentOptional = apartmentRepository.findById(savedApartment.getId());
+        assertFalse(deleteApartmentOptional.isPresent(), "Deleted apartment found in repository");
     }
 
     @Test
-    void testDeleteApartment() {
-        String id = "someId";
-        when(apartmentRepository.existsById(id)).thenReturn(true);
-        int deleteReturn = propertyService.deleteProperty(id, PropertyType.APARTMENT);
-        assertEquals(0, deleteReturn);
-        verify(apartmentRepository, times(1)).deleteById(id);
+    public void UpdateApartmentsTest()
+    {
+        // Add a apartment to be updated
+        Apartment savedApartment = propertyService.addProperty(APARTMENT_1);
+
+        // Update the apartment
+        Apartment updatedApartment = propertyService.updateProperty(savedApartment.getId(), APARTMENT_2);
+
+        // Check whether the apartment was updated successfully
+        assertNotNull(updatedApartment);
+
+        // Check whether this updated apartment was saved in apartment
+        Optional<Apartment> retrievedApartmentOptional = apartmentRepository.findById(updatedApartment.getId());
+        assertTrue(retrievedApartmentOptional.isPresent(), "Updated apartment not found in repository");
+        Apartment retrievedApartment = retrievedApartmentOptional.get();
+        assertEquals(APARTMENT_2.getPricing(), retrievedApartment.getPricing());
     }
-    @Test
-    void updateApartment() {
-        String id = "someId";
-        when(apartmentRepository.findById(id)).thenReturn(Optional.of(apartment1));
-        when(apartmentRepository.save(eq(apartment1))).thenReturn(apartment2);
-        Apartment updatedResult = propertyService.updateProperty(id, apartment2);
-        verify(apartmentRepository, times(1)).save(eq(apartment1));
-        assertEquals(apartment2, updatedResult);
-    }
+
 
 }

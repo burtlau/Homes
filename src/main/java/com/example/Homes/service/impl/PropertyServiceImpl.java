@@ -43,10 +43,10 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public Property addProperty(Property property) {
+    public <T extends Property> T addProperty(Property property) {
         MongoRepository<Property, String> repository = repositoryMap.get(property.getType());
         if (repository != null) {
-            return repository.save(property);
+            return (T) repository.save(property);
         } else {
             throw new IllegalArgumentException("No repository found for property type: " + property.getType());
         }

@@ -1,58 +1,106 @@
 package com.example.Homes.service.impl;
 
-import com.example.Homes.entity.Address;
+import com.example.Homes.TestConstants;
+import com.example.Homes.entity.Apartment;
 import com.example.Homes.entity.House;
 import com.example.Homes.entity.Property;
 import com.example.Homes.entity.PropertyType;
+import com.example.Homes.repo.ApartmentRepository;
 import com.example.Homes.repo.HouseRepository;
-import com.example.Homes.TestConstants;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import com.example.Homes.service.PropertyService;
+import com.mongodb.client.*;
 
-import java.util.Optional;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
+import java.io.IOException;
+import java.util.*;
 
+
+@SpringBootTest
+@ActiveProfiles("test")
 public class HouseServiceTest {
-    private House house1 = TestConstants.HOUSE_1;
-    private House house2 = TestConstants.HOUSE_2;
-    @Mock
+    private static final String MONGOURI = TestConstants.MONGOURI_TEST;
+    private static final House HOUSE_1 = TestConstants.HOUSE_1;
+    private static final House HOUSE_2 = TestConstants.HOUSE_2;
+
+    @Autowired
     private HouseRepository houseRepository;
 
-    @InjectMocks
-    private PropertyServiceImpl propertyService;
+    @Autowired
+    private PropertyService propertyService;
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
+    private static MongoClient mongoClient;
+    private static MongoDatabase database;
+
+    @BeforeAll
+    public static void initializeDB() throws IOException {
+        mongoClient = MongoClients.create(MONGOURI);
+        database = mongoClient.getDatabase("HomesTest");
+    }
+
+    @AfterAll
+    public static void shutdownDB() throws InterruptedException {
+        if (mongoClient != null) {
+            mongoClient.close();
+        }
+    }
+
+    @AfterEach
+    public void cleanup() {
+        houseRepository.deleteAll();
     }
 
     @Test
-    void testAddHouse() {
-        when(houseRepository.save(house1)).thenReturn(house1);
-        Property savedHouse = propertyService.addProperty(house1);
-        assertEquals(house1, savedHouse);
+    public void AddHousesTest()
+    {
+        House savedHouse = propertyService.addProperty(HOUSE_1);
+        assertNotNull(savedHouse.getId());
+
+        // Check whether this house was saved in houseRepository
+        Optional<House> retrievedHouseOptional = houseRepository.findById(savedHouse.getId());
+        assertTrue(retrievedHouseOptional.isPresent(), "House not found in repository");
+
+        // Compare the properties of the retrieved house with the original house
+        House retrievedHouse = retrievedHouseOptional.get();
+        assertEquals(HOUSE_1.getNumOfFloors(), retrievedHouse.getNumOfFloors());
+        assertEquals(HOUSE_1.getPricing(), retrievedHouse.getPricing());
+    }
+
+
+    @Test
+    public void DeleteHouseTest()
+    {
+        House savedHouse = propertyService.addProperty(HOUSE_1);
+        int result = propertyService.deleteProperty(savedHouse.getId(), PropertyType.HOUSE);
+
+        // Verify that the house was deleted successfully
+        assertEquals(0, result);
+        Optional<House> deletedHouseOptional = houseRepository.findById(savedHouse.getId());
+        assertFalse(deletedHouseOptional.isPresent(), "Deleted house found in repository");
     }
 
     @Test
-    void testDeleteHouse() {
-        String id = "someId";
-        when(houseRepository.existsById(id)).thenReturn(true);
-        int deleteReturn = propertyService.deleteProperty(id, PropertyType.HOUSE);
-        assertEquals(0, deleteReturn);
-        verify(houseRepository, times(1)).deleteById(id);
+    public void UpdateHousesTest()
+    {
+        // Add a house to be updated
+        House savedHouse = propertyService.addProperty(HOUSE_1);
+
+        // Update the house
+        House updatedHouse = propertyService.updateProperty(savedHouse.getId(), HOUSE_2);
+
+        // Check whether the house was updated successfully
+        assertNotNull(updatedHouse);
+
+        // Check whether this updated house was saved in houseRepository
+        Optional<House> retrievedHouseOptional = houseRepository.findById(updatedHouse.getId());
+        assertTrue(retrievedHouseOptional.isPresent(), "Updated house not found in repository");
+        House retrievedHouse = retrievedHouseOptional.get();
+        assertEquals(HOUSE_2.getPricing(), retrievedHouse.getPricing());
     }
-    @Test
-    void updateHouse() {
-        String id = "someId";
-        when(houseRepository.findById(id)).thenReturn(Optional.of(house1));
-        when(houseRepository.save(eq(house1))).thenReturn(house2);
-        House updatedResult = propertyService.updateProperty(id, house2);
-        verify(houseRepository, times(1)).save(eq(house1));
-        assertEquals(house2, updatedResult);
-    }
+
+
 }

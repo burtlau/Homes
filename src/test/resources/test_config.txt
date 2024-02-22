@@ -1,0 +1,6 @@
+#export environment variable before you run tests
+
+export hostName=127.0.0.1
+export mongoUsername={YourMongoUserName}
+export mongoPassword={YourMongoPassword}
+export portNumber=27017

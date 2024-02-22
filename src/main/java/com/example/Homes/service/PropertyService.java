@@ -9,7 +9,7 @@ public interface PropertyService {
 
     public List<? extends Property> getAllProperties();
 
-    public Property addProperty(Property property);
+    public<T extends Property> T addProperty(Property property);
 
     public int deleteProperty(String id, PropertyType propertyType);
     public<T extends Property> T updateProperty(String id, Property property);
