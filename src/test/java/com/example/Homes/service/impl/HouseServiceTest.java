@@ -23,9 +23,15 @@ import java.util.*;
 @SpringBootTest
 @ActiveProfiles("test")
 public class HouseServiceTest {
-    private static final String LOCALHOST = "127.0.0.1";
+    private static String localhost = System.getenv("hostName");
     private static final String DB_NAME = "HomesTest";
-    private static final int MONGO_TEST_PORT = 27017;
+
+    private static String mongoTestPort = System.getenv("portNumber");;
+
+    private static String mongoUsername = System.getenv("mongoUsername");
+
+    private static String mongoPassword = System.getenv("mongoPassword");
+
 
     private static final House HOUSE_1 = TestConstants.HOUSE_1;
     private static final House HOUSE_2 = TestConstants.HOUSE_2;
@@ -41,7 +47,7 @@ public class HouseServiceTest {
 
     @BeforeAll
     public static void initializeDB() throws IOException {
-        mongoClient = MongoClients.create(String.format("mongodb://adminUser:adminPassword@%s:%s/%s", LOCALHOST, MONGO_TEST_PORT, DB_NAME));
+        mongoClient = MongoClients.create(String.format("mongodb://%s:%s@%s:%s/%s", mongoUsername, mongoPassword, localhost, mongoTestPort, DB_NAME));
         database = mongoClient.getDatabase(DB_NAME);
     }
 
