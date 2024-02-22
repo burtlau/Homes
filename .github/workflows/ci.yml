@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      hostName: 127.0.0.1
+      mongoUsername: adminUser
+      mongoPassword: adminPassword
+      portNumber: 27017
 
     steps:
       - name: Checkout code
