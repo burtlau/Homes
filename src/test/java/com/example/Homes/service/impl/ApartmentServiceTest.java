@@ -73,7 +73,7 @@ public class ApartmentServiceTest {
     public void DeleteApartmentTest()
     {
         Apartment savedApartment = propertyService.addProperty(APARTMENT_1);
-        int result = propertyService.deleteProperty(savedApartment.getId(), PropertyType.APARTMENT);
+        int result = propertyService.deleteProperty(savedApartment.getId(), savedApartment);
 
         // Verify that the apartment was deleted successfully
         assertEquals(0, result);

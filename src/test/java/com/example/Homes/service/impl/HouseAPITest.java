@@ -41,7 +41,7 @@ public class HouseAPITest {
     void testDeleteHouse() {
         String id = "someId";
         when(houseRepository.existsById(id)).thenReturn(true);
-        int deleteReturn = propertyService.deleteProperty(id, PropertyType.HOUSE);
+        int deleteReturn = propertyService.deleteProperty(id, house1);
         assertEquals(0, deleteReturn);
         verify(houseRepository, times(1)).deleteById(id);
     }
