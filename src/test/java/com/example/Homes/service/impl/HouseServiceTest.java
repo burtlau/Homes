@@ -75,7 +75,7 @@ public class HouseServiceTest {
     public void DeleteHouseTest()
     {
         House savedHouse = propertyService.addProperty(HOUSE_1);
-        int result = propertyService.deleteProperty(savedHouse.getId(), PropertyType.HOUSE);
+        int result = propertyService.deleteProperty(savedHouse.getId(), savedHouse);
 
         // Verify that the house was deleted successfully
         assertEquals(0, result);
