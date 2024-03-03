@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HouseRepository extends MongoRepository<House,String> {
-}
 
+}

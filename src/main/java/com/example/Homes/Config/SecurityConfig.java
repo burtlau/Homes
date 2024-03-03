@@ -19,6 +19,9 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Autowired
     private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Bean
     public SecurityFilterChain defaultFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -33,7 +36,9 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .permitAll())
+                        .failureUrl("/login?error")
+                        .permitAll()
+                )
                 .logout(logout -> logout.logoutUrl("/request/logout")
                         .logoutSuccessUrl("/login?logout")
                         .invalidateHttpSession(true)
@@ -45,12 +50,9 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(){
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userService);
-        authProvider.setPasswordEncoder(passwordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder);
         return new ProviderManager(authProvider);
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 }
