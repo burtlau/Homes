@@ -3,6 +3,7 @@ package com.example.Homes.entity;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.Objects;
 
 @Data
 public abstract class Property {
@@ -97,5 +98,24 @@ public abstract class Property {
     public String getOwnerId() {
         return ownerId;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        var property = (Property) obj;
+        return type == property.type &&
+                area.equals(property.area) &&
+                pricing.equals(property.pricing) &&
+                address.equals(property.address) &&
+                numOfRooms == property.numOfRooms &&
+                numOfBaths == property.numOfBaths &&
+                pictureUrl.equals(property.pictureUrl) &&
+                ownerId.equals(property.ownerId);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, type, area, pricing, address, numOfRooms, numOfBaths, pictureUrl, ownerId);
+    }
 }

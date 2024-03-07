@@ -66,8 +66,7 @@ public class HouseServiceTest {
 
         // Compare the properties of the retrieved house with the original house
         House retrievedHouse = retrievedHouseOptional.get();
-        assertEquals(HOUSE_1.getNumOfFloors(), retrievedHouse.getNumOfFloors());
-        assertEquals(HOUSE_1.getPricing(), retrievedHouse.getPricing());
+        assertEquals(HOUSE_1, retrievedHouse);
     }
 
 
@@ -99,7 +98,7 @@ public class HouseServiceTest {
         Optional<House> retrievedHouseOptional = houseRepository.findById(updatedHouse.getId());
         assertTrue(retrievedHouseOptional.isPresent(), "Updated house not found in repository");
         House retrievedHouse = retrievedHouseOptional.get();
-        assertEquals(HOUSE_2.getPricing(), retrievedHouse.getPricing());
+        assertEquals(HOUSE_2, retrievedHouse);
     }
 
 

@@ -64,8 +64,7 @@ public class ApartmentServiceTest {
 
         // Compare the properties of the retrieved apartment with the original apartment
         Apartment retrievedApartment = retrievedApartmentOptional.get();
-        assertEquals(APARTMENT_1.getHasGym(), retrievedApartment.getHasGym());
-        assertEquals(APARTMENT_1.getPricing(), retrievedApartment.getPricing());
+        assertEquals(APARTMENT_1, retrievedApartment);
     }
 
 
@@ -97,7 +96,7 @@ public class ApartmentServiceTest {
         Optional<Apartment> retrievedApartmentOptional = apartmentRepository.findById(updatedApartment.getId());
         assertTrue(retrievedApartmentOptional.isPresent(), "Updated apartment not found in repository");
         Apartment retrievedApartment = retrievedApartmentOptional.get();
-        assertEquals(APARTMENT_2.getPricing(), retrievedApartment.getPricing());
+        assertEquals(APARTMENT_2, retrievedApartment);
     }
 
 
