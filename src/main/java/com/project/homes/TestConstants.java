@@ -66,4 +66,12 @@ public class TestConstants {
     );
     
     public static final String MONGOURI_TEST = "mongodb://localhost:27017/HomesTest";
+
+    public static final User USER_1 = new User(
+            "burtliu",
+            "password",
+            "Zhongliu",
+            "Liu",
+            "bert.lau@outlook.com"
+    );
 }
