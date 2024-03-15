@@ -1,4 +1,4 @@
-package com.example.Homes.Controller;
+package com.project.homes.Controller;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;

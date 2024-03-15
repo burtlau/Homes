@@ -1,4 +1,4 @@
-package com.example.Homes.entity;
+package com.project.homes.entity;
 
 import lombok.Builder;
 import lombok.Data;

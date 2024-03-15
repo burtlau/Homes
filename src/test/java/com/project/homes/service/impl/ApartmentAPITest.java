@@ -1,10 +1,10 @@
-package com.example.Homes.service.impl;
+package com.project.homes.service.impl;
 
-import com.example.Homes.TestConstants;
-import com.example.Homes.entity.Apartment;
-import com.example.Homes.entity.Property;
-import com.example.Homes.entity.PropertyType;
-import com.example.Homes.repo.ApartmentRepository;
+import com.project.homes.TestConstants;
+import com.project.homes.entity.Apartment;
+import com.project.homes.entity.Property;
+import com.project.homes.entity.PropertyType;
+import com.project.homes.repo.ApartmentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

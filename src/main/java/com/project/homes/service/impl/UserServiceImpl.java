@@ -1,9 +1,9 @@
-package com.example.Homes.service.impl;
+package com.project.homes.service.impl;
 
-import com.example.Homes.Web.UserDto;
-import com.example.Homes.entity.User;
-import com.example.Homes.repo.UserRepository;
-import com.example.Homes.service.UserService;
+import com.project.homes.Web.UserDto;
+import com.project.homes.entity.User;
+import com.project.homes.repo.UserRepository;
+import com.project.homes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

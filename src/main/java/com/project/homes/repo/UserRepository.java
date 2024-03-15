@@ -1,10 +1,8 @@
-package com.example.Homes.repo;
+package com.project.homes.repo;
 
-import com.example.Homes.entity.User;
+import com.project.homes.entity.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {

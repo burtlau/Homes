@@ -1,8 +1,8 @@
-package com.example.Homes.service;
+package com.project.homes.service;
 
-import com.example.Homes.entity.Property;
-import com.example.Homes.entity.PropertyType;
-import org.springframework.stereotype.Service;
+import com.project.homes.entity.Property;
+import com.project.homes.entity.PropertyType;
+
 import java.util.*;
 
 public interface PropertyService {

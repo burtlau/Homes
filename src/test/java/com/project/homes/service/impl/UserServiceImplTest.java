@@ -1,10 +1,10 @@
-package com.example.Homes.service.impl;
+package com.project.homes.service.impl;
 
-import com.example.Homes.TestConstants;
-import com.example.Homes.Web.UserDto;
-import com.example.Homes.entity.User;
-import com.example.Homes.repo.UserRepository;
-import com.example.Homes.service.UserService;
+import com.project.homes.TestConstants;
+import com.project.homes.Web.UserDto;
+import com.project.homes.entity.User;
+import com.project.homes.repo.UserRepository;
+import com.project.homes.service.UserService;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;

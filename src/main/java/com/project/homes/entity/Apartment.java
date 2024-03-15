@@ -1,7 +1,6 @@
-package com.example.Homes.entity;
+package com.project.homes.entity;
 
 import lombok.Data;
-import org.springframework.boot.autoconfigure.integration.IntegrationProperties;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data

@@ -1,6 +1,6 @@
-package com.example.Homes.repo;
+package com.project.homes.repo;
 
-import com.example.Homes.entity.House;
+import com.project.homes.entity.House;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

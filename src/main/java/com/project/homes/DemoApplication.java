@@ -1,17 +1,14 @@
-package com.example.Homes;
+package com.project.homes;
 
-import com.example.Homes.entity.*;
-import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.repo.HouseRepository;
-import com.example.Homes.service.PropertyService;
+import com.project.homes.entity.House;
+import com.project.homes.repo.ApartmentRepository;
+import com.project.homes.repo.HouseRepository;
+import com.project.homes.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.example.Homes.TestConstants;
-
-import java.util.List;
 
 @SpringBootApplication
 public class DemoApplication{

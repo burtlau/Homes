@@ -1,22 +1,21 @@
-package com.example.Homes.service.impl;
+package com.project.homes.service.impl;
 
-import com.example.Homes.TestConstants;
-import com.example.Homes.entity.Apartment;
-import com.example.Homes.entity.House;
-import com.example.Homes.entity.Property;
-import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.repo.HouseRepository;
-import com.example.Homes.service.PropertyService;
+import com.project.homes.TestConstants;
+import com.project.homes.entity.Apartment;
+import com.project.homes.entity.House;
+import com.project.homes.entity.Property;
+import com.project.homes.repo.ApartmentRepository;
+import com.project.homes.repo.HouseRepository;
+import com.project.homes.service.PropertyService;
 import com.mongodb.client.*;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
-import java.io.IOException;
+
 import java.util.*;
 
 

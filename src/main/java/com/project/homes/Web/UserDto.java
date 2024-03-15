@@ -1,4 +1,4 @@
-package com.example.Homes.Web;
+package com.project.homes.Web;
 
 public class UserDto {
     private String userName;

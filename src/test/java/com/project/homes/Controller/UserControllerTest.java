@@ -1,7 +1,8 @@
-package com.example.Homes.Controller;
+package com.project.homes.Controller;
 
 import static org.mockito.Mockito.*;
 
+import com.project.homes.TestConstants;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,11 +12,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import com.example.Homes.Web.UserDto;
-import com.example.Homes.entity.User;
-import com.example.Homes.repo.UserRepository;
-import com.example.Homes.service.UserService;
-import com.example.Homes.TestConstants;
+import com.project.homes.Web.UserDto;
+import com.project.homes.entity.User;
+import com.project.homes.repo.UserRepository;
+import com.project.homes.service.UserService;
 
 class UserControllerTest {
     @Mock

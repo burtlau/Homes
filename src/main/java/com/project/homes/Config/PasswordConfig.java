@@ -1,4 +1,4 @@
-package com.example.Homes.Config;
+package com.project.homes.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

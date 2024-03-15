@@ -1,11 +1,10 @@
-package com.example.Homes.service.impl;
+package com.project.homes.service.impl;
 
-import com.example.Homes.TestConstants;
-import com.example.Homes.entity.Apartment;
-import com.example.Homes.entity.Property;
-import com.example.Homes.entity.PropertyType;
-import com.example.Homes.repo.ApartmentRepository;
-import com.example.Homes.service.PropertyService;
+import com.project.homes.TestConstants;
+import com.project.homes.entity.Apartment;
+import com.project.homes.entity.PropertyType;
+import com.project.homes.repo.ApartmentRepository;
+import com.project.homes.service.PropertyService;
 import com.mongodb.client.*;
 
 import org.junit.jupiter.api.*;

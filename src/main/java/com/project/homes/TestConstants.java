@@ -1,6 +1,6 @@
-package com.example.Homes;
+package com.project.homes;
 
-import com.example.Homes.entity.*;
+import com.project.homes.entity.*;
 
 public class TestConstants {
     public static final Address ADDRESS = new Address(
