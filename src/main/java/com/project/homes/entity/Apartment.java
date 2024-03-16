@@ -21,36 +21,4 @@ public class Apartment extends Property{
         this.hasGym = hasGym;
         this.managementFee = managementFee;
     }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public Boolean getHasParkingLot() {
-        return hasParkingLot;
-    }
-
-    public Boolean getHasGym() {
-        return hasGym;
-    }
-
-    public Double getManagementFee() {
-        return managementFee;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public void setHasParkingLot(Boolean hasParkingLot) {
-        this.hasParkingLot = hasParkingLot;
-    }
-
-    public void setHasGym(Boolean hasGym) {
-        this.hasGym = hasGym;
-    }
-
-    public void setManagementFee(Double managementFee) {
-        this.managementFee = managementFee;
-    }
 }
