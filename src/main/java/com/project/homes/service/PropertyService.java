@@ -11,7 +11,7 @@ public interface PropertyService {
 
     public<T extends Property> T addProperty(Property property);
 
-    public int deleteProperty(String id, PropertyType propertyType);
+    public int deleteProperty(String id, Property property);
     public<T extends Property> T updateProperty(String id, Property property);
 
     /**

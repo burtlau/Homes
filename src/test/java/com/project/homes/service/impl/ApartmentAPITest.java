@@ -43,7 +43,7 @@ public class ApartmentAPITest {
     void testDeleteApartment() {
         String id = "someId";
         when(apartmentRepository.existsById(id)).thenReturn(true);
-        int deleteReturn = propertyService.deleteProperty(id, PropertyType.APARTMENT);
+        int deleteReturn = propertyService.deleteProperty(id, apartment1);
         assertEquals(0, deleteReturn);
         verify(apartmentRepository, times(1)).deleteById(id);
     }
