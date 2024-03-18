@@ -97,6 +97,4 @@ public class ApartmentServiceTest {
         Apartment retrievedApartment = retrievedApartmentOptional.get();
         assertEquals(APARTMENT_2, retrievedApartment);
     }
-
-
 }

@@ -95,6 +95,8 @@ public class HouseServiceTest {
         Optional<House> retrievedHouseOptional = houseRepository.findById(updatedHouse.getId());
         assertTrue(retrievedHouseOptional.isPresent(), "Updated house not found in repository");
         House retrievedHouse = retrievedHouseOptional.get();
+        System.out.println(HOUSE_2.getId());
+        System.out.println(retrievedHouse.getId());
         assertEquals(HOUSE_2, retrievedHouse);
     }
 
