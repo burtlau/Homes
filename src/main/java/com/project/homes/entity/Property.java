@@ -16,6 +16,10 @@ public abstract class Property {
     private String pictureUrl;
     private String ownerId;
 
+    public Property() {
+        
+    }
+
     public Property(PropertyType type, Double area, Double pricing, Address address, int numOfRooms, int numOfBaths, String pictureUrl, String ownerId) {
         this.type = type;
         this.area = area;

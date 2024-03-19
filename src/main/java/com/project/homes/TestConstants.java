@@ -50,6 +50,25 @@ public class TestConstants {
             9000.0
     );
 
+    public static final String APARTMENT_JSON_1 = "{" +
+        "\"type\":\"APARTMENT\"," +
+        "\"area\":20.7," +
+        "\"pricing\":300000.0," +
+        "\"address\":{" +
+                "\"country\":\"Canada\"," +
+                "\"city\":\"Toronto\"," +
+                "\"postCode\":\"M5V 0R1\"" +
+        "}," +
+        "\"numOfRooms\":2," +
+        "\"numOfBaths\":2," +
+        "\"pictureUrl\":\"\"," +
+        "\"ownerId\":\"1\"," +
+        "\"unit\":\"1514\"," +
+        "\"hasParkingLot\":true," +
+        "\"hasGym\":true," +
+        "\"managementFee\":9000.0" +
+        "}";
+
     public static final Apartment APARTMENT_2 = new Apartment(
             PropertyType.APARTMENT,
             20.7,
