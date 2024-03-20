@@ -51,7 +51,7 @@ public class TestConstants {
     );
 
     public static final String APARTMENT_JSON_1 = "{" +
-        "\"type\":\"APARTMENT\"," +
+        "\"type\":\"Apartment\"," +
         "\"area\":20.7," +
         "\"pricing\":300000.0," +
         "\"address\":{" +

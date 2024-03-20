@@ -39,8 +39,6 @@ public class PropertyControllerTest {
     void testCreateProperty() throws Exception {
         String apartmentJson = TestConstants.APARTMENT_JSON_1;
 
-        System.out.println(apartmentJson);
-
         when(propertyService.addProperty(any(Property.class))).thenReturn(TestConstants.APARTMENT_1);
 
         mockMvc.perform(post("/properties")

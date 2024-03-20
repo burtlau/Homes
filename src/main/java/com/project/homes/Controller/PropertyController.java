@@ -15,25 +15,15 @@ public class PropertyController {
   @Autowired
   private PropertyService propertyService;
 
-  private Property getPropertyByType(Property property) {
-    if (property.getType() == PropertyType.HOUSE) {
-      return (House) property;
-    } else if (property.getType() == PropertyType.APARTMENT) {
-      return (Apartment) property;
-    } else {
-      return property;
-    }
-  }
-
   @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public Property createProperty(@RequestBody Property property) {
-    return getPropertyByType(propertyService.addProperty(property));
+    return propertyService.addProperty(property);
   }
 
   @PutMapping("/{id}")
   public Property modifyProperty(@PathVariable String id, @RequestBody Property property) {
-    return getPropertyByType(propertyService.updateProperty(id, property));
+    return propertyService.updateProperty(id, property);
   }
 
   @DeleteMapping("/{id}")
