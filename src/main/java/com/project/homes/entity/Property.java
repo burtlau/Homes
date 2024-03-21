@@ -2,6 +2,18 @@ package com.project.homes.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+@JsonTypeInfo(
+    use = JsonTypeInfo.Id.NAME,
+    include = JsonTypeInfo.As.PROPERTY,
+    property = "type"
+)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = House.class, name = "House"),
+    @JsonSubTypes.Type(value = Apartment.class, name = "Apartment")
+})
 
 @Data
 public abstract class Property {
@@ -15,6 +27,7 @@ public abstract class Property {
     private int numOfBaths;
     private String pictureUrl;
     private String ownerId;
+
 
     public Property(PropertyType type, Double area, Double pricing, Address address, int numOfRooms, int numOfBaths, String pictureUrl, String ownerId) {
         this.type = type;
