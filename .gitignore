@@ -41,3 +41,4 @@ mvnw
 *.properties
 .mvn/wrapper/MavenWrapperDownloader.java
 *.cmd
+node_modules
