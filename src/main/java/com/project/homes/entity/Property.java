@@ -1,6 +1,9 @@
 package com.project.homes.entity;
 
 import lombok.Data;
+
+import java.math.BigDecimal;
+
 import org.springframework.data.annotation.Id;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -21,7 +24,7 @@ public abstract class Property {
     private String id;
     private PropertyType type;
     private Double area;
-    private Double pricing;
+    private BigDecimal pricing;
     private Address address;
     private int numOfRooms;
     private int numOfBaths;
@@ -29,7 +32,7 @@ public abstract class Property {
     private String ownerId;
 
 
-    public Property(PropertyType type, Double area, Double pricing, Address address, int numOfRooms, int numOfBaths, String pictureUrl, String ownerId) {
+    public Property(PropertyType type, Double area, BigDecimal pricing, Address address, int numOfRooms, int numOfBaths, String pictureUrl, String ownerId) {
         this.type = type;
         this.area = area;
         this.pricing = pricing;
