@@ -42,5 +42,87 @@
 			Thymeleaf, Hibernate and MySQL</h1>
 		Welcome <span sec:authentication="principal.username"> User</span>
 	</div>
+
+	<div class="container">
+		<h2>Register Your Property</h2>
+		<form id="propertyForm" action="#" method="post">
+			<div class="form-group">
+				<label for="propertyType">Property Type:</label>
+				<select class="form-control" id="propertyType" name="propertyType">
+					<option value="House">House</option>
+					<option value="Apartment">Apartment</option>
+				</select>
+			</div>
+			<!-- Common fields for both House and Apartment -->
+			<div class="form-group">
+				<label for="area">Area:</label>
+				<input type="number" class="form-control" id="area" name="area">
+			</div>
+			<div class="form-group">
+				<label for="pricing">Pricing:</label>
+				<input type="number" class="form-control" id="pricing" name="pricing">
+			</div>
+			<div class="form-group">
+				<label for="numOfRooms">Number of Rooms:</label>
+				<input type="number" class="form-control" id="numOfRooms" name="numOfRooms">
+			</div>
+			<div class="form-group">
+				<label for="numOfBaths">Number of Baths:</label>
+				<input type="number" class="form-control" id="numOfBaths" name="numOfBaths">
+			</div>
+			<div class="form-group">
+				<label for="pictureUrl">Picture URL:</label>
+				<input type="text" class="form-control" id="pictureUrl" name="pictureUrl">
+			</div>
+			<!-- Conditional fields for House -->
+			<div class="form-group house-fields">
+				<label for="hasBasement">Has Basement:</label>
+				<input type="checkbox" class="form-control" id="hasBasement" name="hasBasement">
+			</div>
+			<div class="form-group house-fields">
+				<label for="numOfFloors">Number of Floors:</label>
+				<input type="number" class="form-control" id="numOfFloors" name="numOfFloors">
+			</div>
+			<!-- Conditional fields for Apartment -->
+			<div class="form-group apartment-fields">
+				<label for="unit">Unit:</label>
+				<input type="text" class="form-control" id="unit" name="unit">
+			</div>
+			<div class="form-group apartment-fields">
+				<label for="hasParkingLot">Has Parking Lot:</label>
+				<input type="checkbox" class="form-control" id="hasParkingLot" name="hasParkingLot">
+			</div>
+			<div class="form-group apartment-fields">
+				<label for="hasGym">Has Gym:</label>
+				<input type="checkbox" class="form-control" id="hasGym" name="hasGym">
+			</div>
+			<div class="form-group apartment-fields">
+				<label for="managementFee">Management Fee:</label>
+				<input type="number" class="form-control" id="managementFee" name="managementFee">
+			</div>
+			<!-- Add more fields as needed -->
+			<button type="submit" class="btn btn-primary">Register Property</button>
+		</form>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+            $('#type').change(function() {
+                var selectedType = $(this).val();
+                if (selectedType === 'House') {
+                    $('#houseFields').show();
+                    $('#apartmentFields').hide();
+                } else if (selectedType === 'Apartment') {
+                    $('#houseFields').hide();
+                    $('#apartmentFields').show();
+                }
+            });
+        });
+	</script>
+
+
+
+
 </body>
 </html>
